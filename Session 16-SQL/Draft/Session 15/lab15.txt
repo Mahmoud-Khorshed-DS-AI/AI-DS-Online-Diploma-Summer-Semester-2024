@@ -1,0 +1,62 @@
+Task:
+
+1- Get which cities has the most 
+products orders in july month
+
+##################
+
+  
+2- which product id has the most 
+completed orders in period may and june
+
+
+###########
+
+  (( 3 Joins )) 
+3- which product name has the most 
+completed orders in period may and june
+
+select oi.order_item_product_id, o.order_status , count(*) 
+    -> from order_items 
+    -> as oi 
+    -> inner join orders as o
+    -> on oi.order_item_order_id = o.order_id 
+    -> where 
+    -> (o.order_status like '%comple%' ) 
+    -> and 
+    -> (month(o.order_date) in ('5','6'))
+    -> group by oi.order_item_product_id 
+    -> order by count(*) desc
+    -> limit 5;
+
+
+mysql> select p.product_name , o.order_status , count(*)
+    -> from order_items as oi
+    -> inner join orders as o
+    -> on oi.order_item_order_id = o.order_id
+    -> inner join products as p
+    -> on oi.order_item_product_id = p.prdouct_id
+    -> where
+    -> (o.order_status like '%comple%' )
+    -> and
+    -> (month(o.order_date) in ('5','6'))
+    -> group by oi.order_item_product_id
+    -> order by count(*) desc
+    -> limit 5;
+
+
+
+
+Task :-
+First name , last name and order date and count(quantity) 
+where orders between  feb and may in 2014
+count quantity for every unique customers (full_name)
+and 
+get highest count quantity
+
+
+
+
+
+List all products along with their categories
+ and which is the most cheapest product
